@@ -106,8 +106,7 @@ function makeCard(day, slotIndex, slotKey, slot, meta, isRead) {
       <span>${isRead ? '읽음' : '읽기'}</span>
     </label>
     <span class="slot-label">
-      <span class="tag ${meta.tag}">${meta.tag === 'family' ? '가족' : '개인'}</span>
-      <span>${meta.label.includes('구약') ? '구약' : '신약'}</span>
+      <span class="tag ${meta.tag}">${meta.label}</span>
     </span>
     <h2 class="ref">${refKo}</h2>
     <p class="ref-en">${refEn}</p>

@@ -49,10 +49,10 @@ export function dateForDay(day, year = new Date().getFullYear()) {
 
 export const SLOT_KEYS = ['family_ot', 'family_nt', 'secret_ot', 'secret_nt'];
 export const SLOT_LABELS = {
-  family_ot: { label: '가족 (구약)', tag: 'family' },
-  family_nt: { label: '가족 (신약)', tag: 'family' },
-  secret_ot: { label: '개인 (구약)', tag: 'secret' },
-  secret_nt: { label: '개인 (신약)', tag: 'secret' },
+  family_ot: { label: '구약', tag: 'ot' },
+  family_nt: { label: '신약', tag: 'nt' },
+  secret_ot: { label: '구약', tag: 'ot' },
+  secret_nt: { label: '신약', tag: 'nt' },
 };
 
 import { bookKo } from './books.js';

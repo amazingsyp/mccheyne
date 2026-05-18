@@ -102,8 +102,8 @@
   letter-spacing: 0;
   text-transform: none;
 }
-.reading-card .slot-label .tag.family { background: rgba(124, 94, 60, 0.12); color: var(--accent); }
-.reading-card .slot-label .tag.secret { background: rgba(93, 143, 93, 0.12); color: var(--check); }
+.reading-card .slot-label .tag.ot { background: rgba(124, 94, 60, 0.12); color: var(--accent); }
+.reading-card .slot-label .tag.nt { background: rgba(93, 143, 93, 0.12); color: var(--check); }
 
 .reading-card .ref {
   font-family: var(--font-ko-serif);
