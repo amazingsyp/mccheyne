@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="365일 맥체인 성경읽기표 - 개역개정, 새번역, NLT, KJV 4역본 비교">
+  <meta name="theme-color" content="#fdfcf7">
+  <title>맥체인 성경읽기</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap">
+  <link rel="stylesheet" href="./styles/tokens.css">
+  <link rel="stylesheet" href="./styles/base.css">
+  <link rel="stylesheet" href="./styles/layout.css">
+  <link rel="stylesheet" href="./styles/components.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="app-header">
+      <a href="#/today" class="brand" aria-label="홈 - 오늘의 본문">
+        <span class="brand-mark">✝</span>
+        <span class="brand-text">맥체인 성경읽기</span>
+      </a>
+      <nav class="app-nav" aria-label="주요 메뉴">
+        <a href="#/today" data-route="today">오늘</a>
+        <a href="#/calendar" data-route="calendar">캘린더</a>
+        <a href="#/bible" data-route="bible">성경</a>
+      </nav>
+    </header>
+    <main id="view" class="view" role="main">
+      <div class="loading">불러오는 중…</div>
+    </main>
+    <footer class="app-footer">
+      <small>맥체인 365일 성경읽기 · 개역개정 · 새번역 · NLT · KJV</small>
+    </footer>
+  </div>
+  <script type="module" src="./scripts/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Workspace (intermediate build artifacts, fetch logs, raw downloads)
+_workspace/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
