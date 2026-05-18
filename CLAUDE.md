@@ -25,3 +25,6 @@
 | 2026-05-18 | 성경 본문 메뉴 추가 (책→장 드릴다운) | scripts/views/bible.js, scripts/data/books.js, index.html, components.css | 맥체인 표 외 자유 탐색 |
 | 2026-05-18 | 주/부 역본 개념 + 모바일 적층 레이아웃 | scripts/data/bible.js, scripts/views/reader.js, styles/components.css | 모바일 가로스크롤 대신 절마다 적층, 주 역본 강조 |
 | 2026-05-18 | GitHub 배포 (public repo + Pages) | .gitignore, .nojekyll | Free plan은 private+Pages 미지원 → public 전환, https://amazingsyp.github.io/mccheyne/ |
+| 2026-05-18 | README에서 데이터 출처 섹션 제거 | README.md | 사용자 요청 |
+| 2026-05-18 | 한킹제임스(KKJV) 5번째 역본 추가 | scripts/build/fetch_bible.py, scripts/data/bible.js, README.md, index.html | getbible.net koreankjv 소스. KJV 직역 한글본 |
+| 2026-05-18 | 구절 검색 기능 추가 | scripts/data/bible.js, scripts/views/search.js, scripts/views/reader.js, scripts/main.js, index.html, components.css | 클라이언트 substring 검색, 결과 클릭 시 reader verse highlight |

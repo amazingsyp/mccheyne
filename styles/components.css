@@ -360,6 +360,149 @@
   .chapter-button { font-size: var(--size-small); }
 }
 
+/* ============ Search View ============ */
+
+.search-view .search-head {
+  margin-bottom: var(--sp-5);
+}
+.search-view .search-head h1 {
+  font-size: var(--size-h1);
+}
+.search-view .search-hint {
+  margin-top: var(--sp-1);
+  color: var(--text-muted);
+  font-size: var(--size-body-sm);
+}
+
+.search-form {
+  display: flex;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+  flex-wrap: wrap;
+}
+.search-input {
+  flex: 1 1 200px;
+  min-width: 200px;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--size-body);
+}
+.search-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+  border-color: var(--accent);
+}
+.search-translation {
+  padding: var(--sp-3) var(--sp-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--size-body-sm);
+  cursor: pointer;
+}
+.search-submit {
+  padding: var(--sp-3) var(--sp-5);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: var(--bg-elevated);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.search-submit:hover {
+  background: var(--accent-soft);
+}
+
+.search-status {
+  margin-bottom: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  font-size: var(--size-body-sm);
+  color: var(--text-muted);
+  min-height: 1.5em;
+}
+.search-status:empty {
+  display: none;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.search-result {
+  display: block;
+  text-align: left;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition);
+  width: 100%;
+}
+.search-result:hover {
+  border-color: var(--accent);
+  background: var(--bg-subtle);
+}
+.search-result:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.search-result .result-ref {
+  font-family: var(--font-ko-serif);
+  font-weight: 700;
+  font-size: var(--size-body-sm);
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.search-result .result-text {
+  font-size: var(--size-body-sm);
+  line-height: 1.65;
+  color: var(--text);
+}
+.search-result.lang-ko .result-text { font-family: var(--font-ko-serif); }
+.search-result.lang-en .result-text { font-family: var(--font-en-serif); }
+.search-result mark {
+  background: rgba(246, 201, 92, 0.4);
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 2px;
+  font-weight: 700;
+}
+.search-more {
+  padding: var(--sp-3) var(--sp-4);
+  color: var(--text-muted);
+  font-size: var(--size-small);
+  text-align: center;
+  font-style: italic;
+}
+
+/* ============ Verse Highlight (from search nav) ============ */
+
+@keyframes verse-highlight-fade {
+  0% { background-color: rgba(246, 201, 92, 0.5); }
+  100% { background-color: rgba(246, 201, 92, 0.18); }
+}
+.verse-table tbody tr.is-highlighted td {
+  animation: verse-highlight-fade 1.6s ease forwards;
+}
+.verse-group.is-highlighted {
+  animation: verse-highlight-fade 1.6s ease forwards;
+  border-radius: var(--radius-sm);
+  margin: 0 calc(-1 * var(--sp-2));
+  padding-left: var(--sp-2);
+  padding-right: var(--sp-2);
+}
+
 /* ============ Reader View ============ */
 
 .reader-head {

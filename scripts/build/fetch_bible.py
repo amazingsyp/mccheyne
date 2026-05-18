@@ -89,6 +89,7 @@ TRANSLATIONS = {
     "nlt": {"name": "NLT", "source": "bolls", "bolls_code": "NLT"},
     "nkrv": {"name": "개역개정", "source": "bskorea", "bskorea_code": "GAE"},
     "nksv": {"name": "새번역", "source": "bskorea", "bskorea_code": "SAENEW"},
+    "kkjv": {"name": "한킹제임스", "source": "getbible", "getbible_code": "koreankjv"},
 }
 
 
@@ -160,12 +161,34 @@ def fetch_bskorea_chapter(translation, book_sbl, chapter):
     return verses
 
 
+def fetch_getbible_chapter(translation, book_sbl, chapter):
+    code = TRANSLATIONS[translation]["getbible_code"]
+    book_num = SBL_TO_BOLLS[book_sbl]  # same 1-66 SBL numbering
+    url = f"https://api.getbible.net/v2/{code}/{book_num}/{chapter}.json"
+    raw = http_get(url)
+    data = json.loads(raw)
+    verses = {}
+    for entry in data.get("verses", []):
+        v = entry.get("verse")
+        t = entry.get("text", "")
+        if v is None:
+            continue
+        # Strip paragraph markers and stray whitespace
+        t = t.replace("¶", "")
+        t = re.sub(r"<[^>]+>", "", t)
+        t = re.sub(r"\s+", " ", t).strip()
+        verses[str(v)] = t
+    return verses
+
+
 def fetch_chapter(translation, book_sbl, chapter):
     src = TRANSLATIONS[translation]["source"]
     if src == "bolls":
         return fetch_bolls_chapter(translation, book_sbl, chapter)
     elif src == "bskorea":
         return fetch_bskorea_chapter(translation, book_sbl, chapter)
+    elif src == "getbible":
+        return fetch_getbible_chapter(translation, book_sbl, chapter)
     else:
         raise ValueError(f"Unknown source: {src}")
 

@@ -1,6 +1,7 @@
 export const TRANSLATIONS = [
   { id: 'nkrv', label: '개역개정', lang: 'ko' },
   { id: 'nksv', label: '새번역', lang: 'ko' },
+  { id: 'kkjv', label: '한킹제임스', lang: 'ko' },
   { id: 'nlt', label: 'NLT', lang: 'en' },
   { id: 'kjv', label: 'KJV', lang: 'en' },
 ];
@@ -62,7 +63,7 @@ export function getSelectedTranslations() {
       }
     }
   } catch {}
-  return ['nkrv', 'nksv', 'nlt', 'kjv'];
+  return ['nkrv', 'nksv', 'kkjv', 'nlt', 'kjv'];
 }
 
 export function setSelectedTranslations(ids) {
@@ -87,4 +88,64 @@ export function getPrimaryTranslation() {
 export function setPrimaryTranslation(id) {
   if (!TRANSLATIONS.some(t => t.id === id)) return;
   try { localStorage.setItem(PRIMARY_KEY, id); } catch {}
+}
+
+/** Search a translation for substring matches.
+ * @param {string} query - search term (case-sensitive for now)
+ * @param {string} translationId - one of TRANSLATIONS ids
+ * @param {function(loaded, total)} onProgress - called after each book loaded
+ * @returns {Promise<Array<{book, chapter, verse, text, matchIndex, matchLen}>>}
+ */
+export async function searchTranslation(query, translationId, onProgress) {
+  if (!query || !translationId) return [];
+  const { BOOKS } = await import('./books.js');
+  const total = BOOKS.length;
+  let loaded = 0;
+  const results = [];
+
+  // Concurrency-controlled fan-out across books.
+  const queue = BOOKS.slice();
+  async function worker() {
+    while (queue.length > 0) {
+      const book = queue.shift();
+      if (!book) break;
+      try {
+        const data = await loadBook(translationId, book.code);
+        if (data?.chapters) {
+          for (const chapKey of Object.keys(data.chapters)) {
+            const verses = data.chapters[chapKey];
+            for (const vKey of Object.keys(verses)) {
+              const text = verses[vKey];
+              const idx = text.indexOf(query);
+              if (idx !== -1) {
+                results.push({
+                  book: book.code,
+                  chapter: parseInt(chapKey, 10),
+                  verse: parseInt(vKey, 10),
+                  text,
+                  matchIndex: idx,
+                  matchLen: query.length,
+                });
+              }
+            }
+          }
+        }
+      } catch { /* skip missing books silently */ }
+      loaded++;
+      onProgress?.(loaded, total);
+    }
+  }
+  const CONCURRENCY = 6;
+  await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
+
+  // Sort results in canonical book order, then chapter, then verse.
+  const order = new Map(BOOKS.map((b, i) => [b.code, i]));
+  results.sort((a, b) => {
+    const oa = order.get(a.book) ?? 999;
+    const ob = order.get(b.book) ?? 999;
+    if (oa !== ob) return oa - ob;
+    if (a.chapter !== b.chapter) return a.chapter - b.chapter;
+    return a.verse - b.verse;
+  });
+  return results;
 }

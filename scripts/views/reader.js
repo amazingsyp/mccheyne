@@ -9,6 +9,7 @@ import { navigate } from '../router.js';
 export async function renderReader(params) {
   const book = (params.book || '').toUpperCase();
   const chapter = parseInt(params.chapter, 10);
+  const targetVerse = params.verse ? parseInt(params.verse, 10) : null;
   const maxChap = chapterCount(book);
   if (!maxChap || !Number.isFinite(chapter) || chapter < 1 || chapter > maxChap) {
     throw new Error(`잘못된 본문 위치: ${book} ${chapter}`);
@@ -48,6 +49,18 @@ export async function renderReader(params) {
   });
 
   await refreshVerseArea(root, book, chapter);
+
+  if (targetVerse) {
+    // After rendering, scroll to target verse and highlight briefly.
+    requestAnimationFrame(() => {
+      const targets = root.querySelectorAll(`[data-verse="${targetVerse}"]`);
+      if (targets.length === 0) return;
+      // Highlight all matching elements (table row + stack group).
+      targets.forEach(el => el.classList.add('is-highlighted'));
+      const visible = Array.from(targets).find(el => el.offsetParent !== null);
+      (visible || targets[0]).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
 
   const onKey = (e) => {
     if (e.target.tagName === 'INPUT') return;
@@ -187,6 +200,7 @@ function buildVerseTable(selected, primary, verseNums, chapterMap) {
   const tbody = document.createElement('tbody');
   for (const v of verseNums) {
     const tr = document.createElement('tr');
+    tr.setAttribute('data-verse', String(v));
     const numTd = document.createElement('td');
     numTd.className = 'verse-num';
     numTd.textContent = v;
@@ -216,6 +230,7 @@ function buildVerseStack(selected, primary, verseNums, chapterMap) {
   for (const v of verseNums) {
     const group = document.createElement('div');
     group.className = 'verse-group';
+    group.setAttribute('data-verse', String(v));
 
     const numRow = document.createElement('div');
     numRow.className = 'verse-num-row';

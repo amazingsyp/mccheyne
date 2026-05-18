@@ -3,6 +3,7 @@ import { renderToday } from './views/today.js';
 import { renderCalendar } from './views/calendar.js';
 import { renderReader } from './views/reader.js';
 import { renderBible } from './views/bible.js';
+import { renderSearch } from './views/search.js';
 
 register('/today', renderToday);
 register('/today/:day', renderToday);
@@ -11,6 +12,9 @@ register('/calendar/:ym', renderCalendar);
 register('/bible', renderBible);
 register('/bible/:book', renderBible);
 register('/read/:book/:chapter', renderReader);
+register('/read/:book/:chapter/:verse', renderReader);
+register('/search', renderSearch);
+register('/search/:t/:q', renderSearch);
 
 function highlightNav() {
   const hash = location.hash.slice(1) || '/today';
