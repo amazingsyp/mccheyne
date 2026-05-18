@@ -24,3 +24,4 @@
 | 2026-05-18 | Reader 로딩 메시지 잔존 버그 수정 | scripts/views/reader.js | appendChild → replaceChildren |
 | 2026-05-18 | 성경 본문 메뉴 추가 (책→장 드릴다운) | scripts/views/bible.js, scripts/data/books.js, index.html, components.css | 맥체인 표 외 자유 탐색 |
 | 2026-05-18 | 주/부 역본 개념 + 모바일 적층 레이아웃 | scripts/data/bible.js, scripts/views/reader.js, styles/components.css | 모바일 가로스크롤 대신 절마다 적층, 주 역본 강조 |
+| 2026-05-18 | GitHub 배포 (public repo + Pages) | .gitignore, .nojekyll | Free plan은 private+Pages 미지원 → public 전환, https://amazingsyp.github.io/mccheyne/ |
