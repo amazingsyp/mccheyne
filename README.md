@@ -50,16 +50,6 @@ python3 scripts/build/fetch_bible.py --days 30 --skip-existing
 
 진행 로그: `_workspace/data/fetch.log`
 
-### 데이터 출처
-| 역본 | 출처 |
-|------|------|
-| KJV | bolls.life API |
-| NLT | bolls.life API |
-| 개역개정 (NKRV) | bskorea.or.kr 스크래핑 |
-| 새번역 (NKSV) | bskorea.or.kr 스크래핑 |
-
-맥체인 읽기표 데이터: [willswire/mcheyne](https://github.com/willswire/mcheyne) PlanConstants.swift
-
 ## 파일 구조
 
 ```
