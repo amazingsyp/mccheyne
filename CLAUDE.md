@@ -29,3 +29,4 @@
 | 2026-05-18 | 한킹제임스(KKJV) 5번째 역본 추가 | scripts/build/fetch_bible.py, scripts/data/bible.js, README.md, index.html | getbible.net koreankjv 소스. KJV 직역 한글본 |
 | 2026-05-18 | 구절 검색 기능 추가 | scripts/data/bible.js, scripts/views/search.js, scripts/views/reader.js, scripts/main.js, index.html, components.css | 클라이언트 substring 검색, 결과 클릭 시 reader verse highlight |
 | 2026-05-18 | Today 카드 '가족/개인' 라벨 제거 | scripts/data/plan.js, scripts/views/today.js, styles/components.css | UI 단순화. 데이터 구조는 호환성 위해 유지 |
+| 2026-05-19 | NKRV/NKSV 모든 장 마지막 절 누락 버그 수정 | scripts/build/fetch_bible.py, data/bible/nkrv/*, data/bible/nksv/* | bskorea HTML의 단일 `</div>` 종료를 regex가 못 잡아 1190 chapter × 2역본 누락. lookahead에 `</div>` 추가 후 --force 재다운로드 |
