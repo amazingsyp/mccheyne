@@ -133,7 +133,7 @@ def fetch_bolls_chapter(translation, book_sbl, chapter):
 
 
 VERSE_SPAN_RE = re.compile(
-    r'<span class="number">(\d+)(?:&nbsp;)*</span>(.*?)(?=<span class="number">|<br\s*/?>(?:\s*<br\s*/?>)+|</td>|<font class="smallTitle">)',
+    r'<span class="number">(\d+)(?:&nbsp;)*</span>(.*?)(?=<span class="number">|<br\s*/?>(?:\s*<br\s*/?>)+|</td>|</div>|<font class="smallTitle">)',
     re.DOTALL,
 )
 
@@ -241,6 +241,8 @@ def main():
     p.add_argument("--delay", type=float, default=0.3, help="Seconds between requests")
     p.add_argument("--skip-existing", action="store_true",
                    help="Skip chapters already saved")
+    p.add_argument("--force", action="store_true",
+                   help="Re-fetch and overwrite even if chapter already saved")
     args = p.parse_args()
 
     plan = json.loads(Path(args.plan).read_text())
@@ -265,7 +267,7 @@ def main():
             changed = False
             for chap in needed[book]:
                 chap_key = str(chap)
-                if args.skip_existing and chap_key in book_data["chapters"]:
+                if args.skip_existing and not args.force and chap_key in book_data["chapters"]:
                     completed += 1
                     continue
                 try:
